@@ -17,19 +17,31 @@ class Program
 
         Console.WriteLine("Salt (default: SaltForEncryption): ");
         // Password to derive the key from
+        string password = Console.ReadLine();
+
+        Console.WriteLine("Salt (default: SaltForEncryption): ");
+        // Password to derive the key from
         string salt = Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(salt)) salt = "SaltForEncryption";
+		if (string.IsNullOrWhiteSpace(salt)) salt = "SaltForEncryption";
 
-        // Encrypt the string
-        string encryptedString = EncryptString(originalString, password, salt);
-        // Decrypt the string
-        string decryptedString = DecryptString(originalString, password, salt);
+		Console.WriteLine("Original String: " + originalString);
 
-        Console.WriteLine("Original String: " + originalString);
-        Console.WriteLine("Encrypted String: " + encryptedString);
-        Console.WriteLine("Decrypted String: " + decryptedString);
+		// Encrypt the string
+		string encryptedString = EncryptString(originalString, password, salt);
+		Console.WriteLine("Encrypted String: " + encryptedString);
 
-        Console.ReadLine();
+		try
+		{
+			// Decrypt the string
+			string decryptedString = DecryptString(originalString, password, salt);
+			Console.WriteLine("Decrypted String: " + decryptedString);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine("Decrypted String: " + ex.Message);
+		}
+
+		Console.ReadLine();
     }
 
     static string EncryptString(string plainText, string password, string salt)
